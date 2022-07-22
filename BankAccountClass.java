@@ -3,7 +3,7 @@ import java.util.ArrayList; //
 import java.util.Collections; // 
 import java.lang.reflect.Array; // for array creation
 
-public class BankAccount { // Create a BankAccount class.
+public class BankAccountClass { // Create a BankAccountClass class.
     private String accountNumber;
     private Double checkingBalance;
     private Double savingsBalance;
@@ -11,7 +11,7 @@ public class BankAccount { // Create a BankAccount class.
     private static int numberOfAccounts = 0;
     private static double totalBalance = 0.0;
 
-    public BankAccount(String newNumber, Double newChecking, Double Savings) {
+    public BankAccountClass(String newNumber, Double newChecking, Double Savings) {
         accountNumber = random10();
         checkingBalance = newChecking;
         savingsBalance = Savings;
@@ -54,17 +54,20 @@ public class BankAccount { // Create a BankAccount class.
     }
 
     public static void setNumberofAccouts(int numberOfAccounts) {
-        BankAccount.numberOfAccounts = numberOfAccounts;
+        BankAccountClass.numberOfAccounts = numberOfAccounts;
     }
 
     // Random Account Number Generator
     private String random10() {
         Random ran = new Random();
         String charList = "0123456789";
-        StringBuffer accountNum = new StringBuffer();
+        StringBuffer accountNumber = new StringBuffer(); // create a StringBuffer object
         for (int i = 0; i < 10; i++) {
-            accountNum.append(charList.charAt(ran.nextInt(charList.length())));
+            int number = (ran.nextInt(9 - 0));
+            char ch = charList.charAt(number);
+            accountNumber.append(ch);
         }
+        return (accountNumber.toString());
     }
 
     // Make a depost
@@ -72,13 +75,16 @@ public class BankAccount { // Create a BankAccount class.
         if (accountType == "Checking") {
             checkingBalance = checkingBalance + value;
             totalBalance = totalBalance + value;
-        } else { System.out.println("Account Type Error, deposit of " + value + " has failed");
+        } else {
+            System.out.println("Account Type Error, deposit of " + value + " has failed");
+        }
+        if (accountType == "Savings") {
+            savingsBalance = savingsBalance + value;
+            totalBalance = totalBalance + value;
+        } else {
+            System.out.println("Account Type Error, deposit of " + value + " has failed");
+        }
     }
-    if (accountType == "Savings") {
-        savingsBalance = savingsBalance + value;
-        totalBalance = totalBalance + value;
-    } else { System.out.println("Account Type Error, deposit of " + value + " has failed")
-}}
 
     // Make a withdrawal
     public double withdrawl(String type, double value) {
