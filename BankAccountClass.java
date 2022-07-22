@@ -1,21 +1,29 @@
 import java.util.Random;
-import java.util.ArrayList; // 
-import java.util.Collections; // 
-import java.lang.reflect.Array; // for array creation
+// import java.util.ArrayList; //
+// import java.util.Collections; //
+// import java.lang.reflect.Array; // for array creation
 
 public class BankAccountClass { // Create a BankAccountClass class.
     private String accountNumber;
     private Double checkingBalance;
     private Double savingsBalance;
+    public static int numberOfAccounts = 0;
+    public static double totalBalance = 0.0;
 
-    private static int numberOfAccounts = 0;
-    private static double totalBalance = 0.0;
+    public BankAccountClass() {
+        this.checkingBalance = 0.0;
+        this.savingsBalance = 0.0;
+        this.accountNumber = BankAccountClass.random10();
+    }
 
-    public BankAccountClass(String newNumber, Double newChecking, Double Savings) {
-        accountNumber = random10();
-        checkingBalance = newChecking;
-        savingsBalance = Savings;
-        setNumberOfAccounts(getNumberOfAccounts() + 1);
+    // ● Create a getter method for the user's checking account balance.
+    public double getCheckingBalance() {
+        return checkingBalance;
+    }
+
+    // ● Create a getter method for the user's saving account balance.
+    public double getSavingsBalance() {
+        return savingsBalance;
     }
 
     // getter
@@ -28,24 +36,14 @@ public class BankAccountClass { // Create a BankAccountClass class.
         setNumberOfAccounts(number);
     }
 
-    // getter
-    public double getCheckingBalance() {
-        return checkingBalance;
+    // setter
+    public void setCheckingBalance(double checkingBalances) {
+        checkingBalance = checkingBalance + checkingBalances;
     }
 
     // setter
-    public void setCheckingBalance(double checkingBalance) {
-        checkingBalance = checkingBalance + checkingBalance;
-    }
-
-    // getter
-    public double getSavingsBalance() {
-        return savingsBalance;
-    }
-
-    // setter
-    public void setSavingsBalance(double savingsBalance) {
-        savingsBalance = savingsBalance + savingsBalance;
+    public void setSavingsBalance(double savingsBalances) {
+        savingsBalance = savingsBalance + savingsBalances;
     }
 
     // getter
@@ -58,10 +56,10 @@ public class BankAccountClass { // Create a BankAccountClass class.
     }
 
     // Random Account Number Generator
-    private String random10() {
+    private static String random10() {
         Random ran = new Random();
         String charList = "0123456789";
-        StringBuffer accountNumber = new StringBuffer(); // create a StringBuffer object
+        StringBuffer accountNumber = new StringBuffer();
         for (int i = 0; i < 10; i++) {
             int number = (ran.nextInt(9 - 0));
             char ch = charList.charAt(number);
@@ -70,7 +68,8 @@ public class BankAccountClass { // Create a BankAccountClass class.
         return (accountNumber.toString());
     }
 
-    // Make a depost
+    // ● Create a method that will allow a user to deposit money into either the
+    // checking or saving, be sure to add to total amount stored.
     public void deposit(String accountType, double value) {
         if (accountType == "Checking") {
             checkingBalance = checkingBalance + value;
@@ -109,7 +108,8 @@ public class BankAccountClass { // Create a BankAccountClass class.
             totalBalance = totalBalance - value;
             return value;
         } else {
-            System.out.println("Account Type Error, could not complete withdrawl of " + value + " not completed");
+            System.out.println("Account Type Error, could not complete withdrawl of " +
+                    value + " not completed");
             return value;
         }
     }
